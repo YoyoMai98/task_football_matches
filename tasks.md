@@ -73,7 +73,22 @@ AND ftr = 'D'
 
 ```sql
 SELECT * FROM public.divisions WHERE name = 'Premier League';
-
+SELECT hometeam, SUM(home_goals) as total_goals FROM(
+SELECT * FROM(
+SELECT DISTINCT hometeam, SUM(fthg) as home_goals
+FROM public.matches
+WHERE division_code = 'E0'
+GROUP BY hometeam
+ORDER BY home_goals DESC) AS home
+UNION ALL
+SELECT * FROM(
+SELECT DISTINCT awayteam, SUM(fthg) AS away_goals
+FROM public.matches
+WHERE division_code = 'E0'
+GROUP BY awayteam
+ORDER BY away_goals DESC) AS away
+) AS total GROUP BY hometeam
+ORDER BY total_goals DESC;
 ```
 
 10) In which division and which season were the most goals scored?
