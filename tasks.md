@@ -46,13 +46,9 @@ SELECT hometeam FROM public.matches WHERE division_code = 'F1' OR division_code 
 7) Have Huddersfield played Swansea in the period covered?
 
 ```sql
-SELECT CASE WHEN EXISTS(
 SELECT * FROM public.matches
 WHERE (hometeam = 'Swansea' AND awayteam = 'Huddersfield')
-OR (hometeam = 'Huddersfield' AND awayteam = 'Swansea')
-)
-THEN CAST(1 AS BIT)
-ELSE CAST(0 AS BIT) END;
+OR (hometeam = 'Huddersfield' AND awayteam = 'Swansea');
 ```
 
 8) How many draws were there in the Eredivisie between 2010 and 2015?
@@ -74,9 +70,11 @@ SELECT * FROM matches WHERE division_code = 'E0' ORDER BY (fthg + ftag) DESC, ft
 10) In which division and which season were the most goals scored?
 
 ```sql
-<!-- Copy solution here -->
-
-
+SELECT division_code, season, SUM(fthg + ftag)
+FROM matches
+GROUP BY division_code, season
+ORDER BY sum DESC
+LIMIT 1;
 ```
 
 ### Useful Resources
