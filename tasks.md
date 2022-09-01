@@ -33,18 +33,14 @@ OR awayteam = 'Freiburg';
 5) Find the unique names of the teams which include the word "City" in their name (as entered in the database)
 
 ```sql
-SELECT DISTINCT team FROM(
-SELECT DISTINCT hometeam as team FROM public.matches WHERE hometeam LIKE '%City%'
-UNION
-SELECT DISTINCT awayteam FROM public.matches WHERE awayteam LIKE '%City%'
-) as uniqueTeam;
+SELECT DISTINCT hometeam FROM public.matches WHERE hometeam LIKE '%City%';
 ```
 
 6) How many different teams have played in matches recorded in a French division?
 
 ```sql
 SELECT code FROM public.divisions WHERE country = 'France';
-SELECT hometeam FROM public.matches WHERE division_code = 'F1' OR division_code = 'F2'
+SELECT hometeam FROM public.matches WHERE division_code = 'F1' OR division_code = 'F2';
 ```
 
 7) Have Huddersfield played Swansea in the period covered?
