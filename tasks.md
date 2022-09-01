@@ -68,7 +68,7 @@ AND ftr = 'D';
 9) Select the matches played in the Premier League in order of total goals scored from highest to lowest. Where there is a tie the match with more home goals should come first.
 
 ```sql
-SELECT * FROM matches WHERE (NOT ftr = 'D') AND division_code = 'E0' ORDER BY (fthg + ftag) DESC, fthg DESC;
+SELECT * FROM matches WHERE division_code = 'E0' ORDER BY (fthg + ftag) DESC, fthg DESC;
 ```
 
 10) In which division and which season were the most goals scored?
