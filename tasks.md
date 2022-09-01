@@ -5,31 +5,24 @@ Each of the questions/tasks below can be answered using a `SELECT` query. When y
 1) Find all the matches from 2017.
 
 ```sql
-<!-- Copy solution here -->
-SELECT * FROM public.matches WHERE season == 2007;
-
+SELECT * FROM public.matches WHERE season = 2007;
 ```
 
 2) Find all the matches featuring Barcelona.
 
 ```sql
-<!-- Copy solution here -->
 SELECT * FROM public.matches WHERE hometeam = 'Barcelona' OR awayteam = 'Barcelona';
-
 ```
 
 3) What are the names of the Scottish divisions included?
 
 ```sql
-<!-- Copy solution here -->
 SELECT name FROM public.divisions WHERE country = 'Scotland';
-
 ```
 
 4) Find the division code for the Bundesliga. Use that code to find out how many matches Freiburg have played in the Bundesliga since the data started being collected.
 
 ```sql
-<!-- Copy solution here -->
 SELECT * FROM public.divisions WHERE name = 'Bundesliga';
 SELECT COUNT(*) FROM public.matches
 WHERE division_code = 'D1'
@@ -40,7 +33,6 @@ OR awayteam = 'Freiburg';
 5) Find the unique names of the teams which include the word "City" in their name (as entered in the database)
 
 ```sql
-<!-- Copy solution here -->
 SELECT DISTINCT team FROM(
 SELECT DISTINCT hometeam as team FROM public.matches WHERE hometeam LIKE '%City%'
 UNION
@@ -51,7 +43,6 @@ SELECT DISTINCT awayteam FROM public.matches WHERE awayteam LIKE '%City%'
 6) How many different teams have played in matches recorded in a French division?
 
 ```sql
-<!-- Copy solution here -->
 SELECT code FROM public.divisions WHERE country = 'France';
 SELECT COUNT(DISTINCT team) FROM(
 SELECT DISTINCT hometeam as team FROM public.matches WHERE division_code = 'F1'
@@ -63,7 +54,6 @@ SELECT DISTINCT awayteam FROM public.matches WHERE division_code = 'F1'
 7) Have Huddersfield played Swansea in the period covered?
 
 ```sql
-<!-- Copy solution here -->
 SELECT CASE WHEN EXISTS(
 SELECT * FROM public.matches
 WHERE (hometeam = 'Swansea' AND awayteam = 'Huddersfield')
@@ -76,7 +66,6 @@ ELSE CAST(0 AS BIT) END;
 8) How many draws were there in the Eredivisie between 2010 and 2015?
 
 ```sql
-<!-- Copy solution here -->
 SELECT * FROM public.divisions WHERE name = 'Eredivisie';
 SELECT COUNT(*) FROM public.matches
 WHERE season >= 2010 AND season <= 2015
