@@ -62,29 +62,13 @@ SELECT * FROM public.divisions WHERE name = 'Eredivisie';
 SELECT COUNT(*) FROM public.matches
 WHERE season >= 2010 AND season <= 2015
 AND division_code = 'N1'
-AND ftr = 'D'
+AND ftr = 'D';
 ```
 
 9) Select the matches played in the Premier League in order of total goals scored from highest to lowest. Where there is a tie the match with more home goals should come first.
 
 ```sql
-SELECT * FROM public.divisions WHERE name = 'Premier League';
-SELECT hometeam, SUM(home_goals) as total_goals FROM(
-SELECT * FROM(
-SELECT DISTINCT hometeam, SUM(fthg) as home_goals
-FROM public.matches
-WHERE division_code = 'E0'
-GROUP BY hometeam
-ORDER BY home_goals DESC) AS home
-UNION ALL
-SELECT * FROM(
-SELECT DISTINCT awayteam, SUM(fthg) AS away_goals
-FROM public.matches
-WHERE division_code = 'E0'
-GROUP BY awayteam
-ORDER BY away_goals DESC) AS away
-) AS total GROUP BY hometeam
-ORDER BY total_goals DESC;
+SELECT * FROM matches WHERE (NOT ftr = 'D') AND division_code = 'E0' ORDER BY (fthg + ftag) DESC, fthg DESC;
 ```
 
 10) In which division and which season were the most goals scored?
