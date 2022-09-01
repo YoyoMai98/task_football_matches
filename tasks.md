@@ -44,11 +44,7 @@ SELECT DISTINCT awayteam FROM public.matches WHERE awayteam LIKE '%City%'
 
 ```sql
 SELECT code FROM public.divisions WHERE country = 'France';
-SELECT COUNT(DISTINCT team) FROM(
-SELECT DISTINCT hometeam as team FROM public.matches WHERE division_code = 'F1'
-UNION
-SELECT DISTINCT awayteam FROM public.matches WHERE division_code = 'F1'
-) as uniqueTeam;
+SELECT hometeam FROM public.matches WHERE division_code = 'F1' OR division_code = 'F2'
 ```
 
 7) Have Huddersfield played Swansea in the period covered?
@@ -76,7 +72,6 @@ AND ftr = 'D'
 9) Select the matches played in the Premier League in order of total goals scored from highest to lowest. Where there is a tie the match with more home goals should come first.
 
 ```sql
-<!-- Copy solution here -->
 SELECT * FROM public.divisions WHERE name = 'Premier League';
 
 ```
